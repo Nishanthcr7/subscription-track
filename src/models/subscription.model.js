@@ -59,8 +59,8 @@ const subscriptionSchema = new mongoose.Schema({
         required: true,
         index: true
     },
-    options: { timestamp: true }
-})
+}, { timestamp: true }
+)
 
 subscriptionSchema.pre('save', function (next) {
     if (!this.endDate) {
@@ -76,3 +76,7 @@ subscriptionSchema.pre('save', function (next) {
     }
     if (this.endDate < new Date()) this.status = "expired"
 })
+
+const subscription = mongoose.model("subscription", subscriptionSchema);
+
+export default subscription;
